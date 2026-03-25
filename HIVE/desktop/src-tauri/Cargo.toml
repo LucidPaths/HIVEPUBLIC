@@ -1,0 +1,59 @@
+[package]
+name = "hive-desktop"
+version = "1.0.0"
+description = "HIVE - Standalone Local AI Runtime"
+authors = ["HIVE Project"]
+edition = "2021"
+
+[build-dependencies]
+tauri-build = { version = "2", features = [] }
+
+[dependencies]
+tauri = { version = "2", features = ["tray-icon", "image-png"] }
+tauri-plugin-dialog = "2"
+tauri-plugin-shell = "2"
+serde = { version = "1", features = ["derive"] }
+serde_json = "1"
+dirs = "5"
+reqwest = { version = "0.12", features = ["stream", "json"] }
+tokio = { version = "1", features = ["fs", "process", "time"] }
+futures-util = "0.3"
+async-trait = "0.1"
+
+# Encryption (AES-256-GCM authenticated encryption)
+# No OS dependencies - works on Windows, Linux, macOS
+aes-gcm = "0.10"
+rand = "0.8"
+base64 = "0.22"
+html2text = "0.12"
+scraper = "0.20"
+pdf-extract = "0.7"
+regex = "1"
+url = "2"
+urlencoding = "2"
+
+# Memory system (SQLite + FTS5 full-text search)
+rusqlite = { version = "0.31", features = ["bundled"] }
+
+# Local embedding (Phase 3 Intelligence Graduation — offline ONNX embeddings)
+# all-MiniLM-L6-v2: 384-dim, ~22MB model cached on first use. Apache-2.0.
+# ort-load-dynamic: loads ONNX Runtime DLL at runtime (x86_64-pc-windows-gnu has no prebuilt ort-sys)
+# online: enables try_new() with auto-download from Hugging Face
+fastembed = { version = "5", default-features = false, features = ["ort-load-dynamic", "online"] }
+sha2 = "0.10"
+chrono = "0.4"
+
+# MCP protocol (Model Context Protocol — tool interop with Claude Code, etc.)
+# Transports: stdio (local process) + streamable HTTP (remote servers)
+rmcp = { version = "0.16", features = ["client", "transport-io", "transport-child-process", "transport-streamable-http-client-reqwest"] }
+
+# PTY management (Phase 10 — NEXUS terminal panes for CLI agents)
+portable-pty = "0.9"
+uuid = { version = "1", features = ["v4"] }
+
+[profile.release]
+panic = "abort"
+codegen-units = 1
+lto = true
+opt-level = "s"
+strip = true

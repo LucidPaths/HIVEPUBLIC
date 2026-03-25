@@ -1,0 +1,35 @@
+# mgrep Configuration for HiveMind Repository
+# Copy this to the repository root as .mgreprc.yaml
+
+# Search defaults
+max_count: 20          # Default number of results
+content: true          # Show matching content by default
+rerank: true           # Enable reranking for better relevance
+
+# Indexing settings
+max_file_size: 1048576  # 1MB max file size
+max_file_count: 2000    # Max files per directory
+
+# File patterns to ignore (in addition to .gitignore)
+ignore:
+  - "node_modules/**"
+  - "**/target/**"
+  - "**/*.lock"
+  - "**/dist/**"
+  - "**/build/**"
+  - "**/.git/**"
+  - "**/*.min.js"
+  - "**/*.min.css"
+  - "**/*.map"
+  - "**/package-lock.json"
+  - "**/Cargo.lock"
+
+# File types to prioritize for code search
+priorities:
+  - "*.rs"      # Rust (Tauri backend)
+  - "*.ts"      # TypeScript (React frontend)
+  - "*.tsx"     # React components
+  - "*.py"      # Python (Flask backend)
+  - "*.json"    # Config files
+  - "*.yaml"    # Config files
+  - "*.md"      # Documentation

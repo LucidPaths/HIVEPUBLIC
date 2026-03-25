@@ -1,0 +1,123 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #444;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* Selection */
+::selection {
+  background: rgba(0, 255, 136, 0.3);
+}
+
+/* Focus outline */
+*:focus-visible {
+  outline: 2px solid #00ff88;
+  outline-offset: 2px;
+}
+
+/* Smooth transitions */
+* {
+  transition-property: background-color, border-color, color, fill, stroke, opacity;
+  transition-duration: 150ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Custom components */
+@layer components {
+  .btn-primary {
+    @apply bg-hive-accent text-hive-bg font-semibold px-4 py-2 rounded
+           hover:bg-hive-accent-dim active:scale-95 disabled:opacity-50
+           disabled:cursor-not-allowed;
+  }
+
+  .btn-secondary {
+    @apply bg-hive-surface border border-hive-border text-hive-text px-4 py-2 rounded
+           hover:bg-hive-border active:scale-95 disabled:opacity-50
+           disabled:cursor-not-allowed;
+  }
+
+  .card {
+    @apply relative bg-hive-surface border border-hive-border rounded-lg;
+  }
+
+  .slot-card {
+    @apply card p-4 hover:border-hive-accent transition-colors cursor-pointer;
+  }
+
+  .slot-card-empty {
+    @apply slot-card border-dashed hover:bg-hive-bg;
+  }
+
+  .slot-card-loaded {
+    @apply slot-card border-hive-accent;
+  }
+
+  .input {
+    @apply bg-hive-bg border border-hive-border text-hive-text rounded px-3 py-2
+           focus:border-hive-accent focus:ring-1 focus:ring-hive-accent;
+  }
+
+  .log-entry {
+    @apply font-mono text-sm py-0.5 px-2;
+  }
+
+  .log-info {
+    @apply log-entry text-hive-text-dim;
+  }
+
+  .log-success {
+    @apply log-entry text-hive-accent;
+  }
+
+  .log-warning {
+    @apply log-entry text-hive-warning;
+  }
+
+  .log-error {
+    @apply log-entry text-hive-error;
+  }
+}
+
+/* Animations */
+@keyframes pulse-glow {
+  0%, 100% {
+    box-shadow: 0 0 5px rgba(0, 255, 136, 0.3);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(0, 255, 136, 0.6);
+  }
+}
+
+.loading-pulse {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.animate-spin-slow {
+  animation: spin 3s linear infinite;
+}
